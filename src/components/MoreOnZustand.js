@@ -1,21 +1,17 @@
 import { useZustand } from '../state/ZustandInDepth';
-import { useEffect, useState } from 'react';
-function MoreOnZustand() {
-	const {
-		toads,
-		increaseToad,
-		decreaseToad,
-		posts,
-		fetchPosts,
-		items,
-		fetchItems,
-		addItem
-	} = useZustand();
+import { useState } from 'react';
+import {
+	useFetchPosts,
+	useFetchItems,
+	useAddItem
+} from '../hooks/useApiFunctions';
 
-	useEffect(() => {
-		posts && fetchPosts();
-		items && fetchItems();
-	}, []);
+function MoreOnZustand() {
+	const { toads, increaseToad, decreaseToad } = useZustand();
+
+	const { data: postsData } = useFetchPosts();
+	const { data: itemsData } = useFetchItems();
+	const { mutation } = useAddItem();
 
 	const [value, setValue] = useState({
 		name: '',
@@ -30,7 +26,7 @@ function MoreOnZustand() {
 	};
 
 	const handleAddItem = () => {
-		addItem(value);
+		mutation.mutate(value);
 	};
 
 	return (
@@ -41,11 +37,20 @@ function MoreOnZustand() {
 			<button onClick={decreaseToad}>Reduce toad</button>
 			<br />
 			<br />
-			{posts &&
-				posts?.map((post, index) => (
+			{postsData?.map((post, index) => (
+				<div key={index}>
+					<p>{post.title}</p>
+					<p>{post.body}</p>
+					<br />
+				</div>
+			))}
+
+			<br />
+			{itemsData &&
+				itemsData?.map((item, index) => (
 					<div key={index}>
-						<p>{post.title}</p>
-						<p>{post.body}</p>
+						<p>{item.name}</p>
+						<p>{item.description}</p>
 						<br />
 					</div>
 				))}
@@ -75,15 +80,6 @@ function MoreOnZustand() {
 			</select>
 			<br />
 			<button onClick={handleAddItem}>Add Tool</button>
-			<br />
-			{items &&
-				items?.map((item, index) => (
-					<div key={index}>
-						<p>{item.name}</p>
-						<p>{item.description}</p>
-						<br />
-					</div>
-				))}
 		</div>
 	);
 }

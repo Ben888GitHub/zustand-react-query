@@ -14,24 +14,20 @@ const zustandStore = (set, get) => ({
 		const { data } = await axios.get(
 			'https://jsonplaceholder.typicode.com/posts'
 		);
-		set(() => ({ posts: data.slice(0, 10) }));
+		// set(() => ({ posts: data.slice(0, 10) }));
+		return data.slice(0, 10);
 	},
 	items: [],
 	fetchItems: async () => {
 		const { data } = await axios.get('http://localhost:3001/items');
-		set(() => ({ items: data }));
+		// set(() => ({ items: data }));
+		return data;
 	},
 	addItem: async (item) => {
 		const { data } = await axios.post('http://localhost:3001/items', item);
-		set((state) => ({ items: [...state.items, data] }));
+		// set((state) => ({ items: [...state.items, data] }));
+		return data;
 	}
 });
 
-export const useZustand = create(
-	devtools(
-		persist(zustandStore, {
-			name: 'zustand-store',
-			serialize: { options: true }
-		})
-	)
-);
+export const useZustand = create(zustandStore);

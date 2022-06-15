@@ -1,24 +1,19 @@
 {
-  "items": [
-    {
-      "name": "GraphQL",
-      "description": "API Query Engine",
-      "id": 1
-    },
-    {
-      "name": "Supabase",
-      "description": "One of the best BAAS",
-      "id": 2
-    },
-    {
-      "name": "Zustand",
-      "description": "State Management Library for all Apps",
-      "id": 3
-    },
-    {
-      "name": "GraphQL",
-      "description": "NoSQL Database",
-      "id": 4
-    }
-  ]
+	"items": [
+		{
+			"name": "GraphQL",
+			"description": "API Query Engine",
+			"id": 1
+		},
+		{
+			"name": "Supabase",
+			"description": "One of the best BAAS",
+			"id": 2
+		},
+		{
+			"name": "Zustand",
+			"description": "State Management Library for all Apps",
+			"id": 3
+		}
+	]
 }
